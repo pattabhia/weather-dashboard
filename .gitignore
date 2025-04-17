@@ -26,3 +26,4 @@ package-lock.json
 *.sh
 .commit-last-date
 commit-plan.txt
+.commit-last-branch
