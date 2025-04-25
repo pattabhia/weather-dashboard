@@ -3,13 +3,14 @@ import logo from "./logo.svg";
 import "./App.css";
 import Greet from "./components/Greet";
 import EventBind from "./components/EventBind";
+import UserGreetings from "./components/UserGreetings";
 
 class App extends React.Component {
   render() {
     return (
       <div className="App">
         <Greet name="Bruce" messageCount={20} isLoggedIn={true} />
-        <EventBind />
+        <UserGreetings isLoggedIn={false} />
       </div>
     );
   }
