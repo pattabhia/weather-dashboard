@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     // Fetch weather for a default city on load
-    fetchWeather("London");
+    fetchWeather("Nellore");
   }, []);
 
   const fetchWeather = async (city: string) => {
