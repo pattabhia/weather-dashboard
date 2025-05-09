@@ -1,13 +1,14 @@
 import React from "react";
 import { WeatherData } from "../../types/models/weather.interface";
 import "./WeatherCard.css";
+import { WEATHER_CONFIG } from "../../constants/config";
 
 interface WeatherCardProps {
   weather: WeatherData;
 }
 
 const WeatherCard: React.FC<WeatherCardProps> = ({ weather }) => {
-  const iconUrl = `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`;
+  const iconUrl = `${WEATHER_CONFIG.ICON_BASE_URL}/${weather.weather[0].icon}@2x.png`;
 
   return (
     <div className="weather-card">
