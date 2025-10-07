@@ -1,5 +1,5 @@
 import React from "react";
-import type GreetProps from "../types/Greet";
+import type GreetProps from "../types/greet.type";
 
 const Greet = (props: GreetProps) => {
   console.log("Greet component rendered", props.name);
