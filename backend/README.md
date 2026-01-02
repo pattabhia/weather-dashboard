@@ -106,14 +106,4 @@ npm run dev
 curl http://localhost:3001/test/weather/london
 ```
 
-### Viewing Logs
-The server logs all incoming messages and responses to the console.
-
-## Deployment
-
-See [WHATSAPP-SETUP.md](../WHATSAPP-SETUP.md) for detailed deployment instructions.
-
-## License
-
-ISC
 
