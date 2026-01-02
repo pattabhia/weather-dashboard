@@ -35,7 +35,7 @@ console.log('🌤️  Testing Weather Service...\n');
 
 const { fetchWeather } = require('./services/weatherService');
 
-fetchWeather('Nellore')
+fetchWeather('Delhi')
   .then(data => {
     console.log('✅ Weather API is working!');
     console.log(`   City: ${data.city}, ${data.country}`);
