@@ -36,6 +36,9 @@ async function handleWebhook(req, res) {
   try {
     const body = req.body;
 
+    // Log all incoming webhook requests for debugging
+    console.log('📥 Webhook received:', JSON.stringify(body, null, 2));
+
     // Check if this is a WhatsApp message event
     if (body.object === 'whatsapp_business_account') {
       // Extract message details
@@ -54,15 +57,18 @@ async function handleWebhook(req, res) {
 
         // Process the message
         await processMessage(from, messageBody, messageId);
+      } else {
+        console.log('⚠️ No messages found in webhook payload');
       }
 
       // Always respond with 200 OK to acknowledge receipt
       res.sendStatus(200);
     } else {
+      console.log('⚠️ Webhook object is not whatsapp_business_account:', body.object);
       res.sendStatus(404);
     }
   } catch (error) {
-    console.error('Error handling webhook:', error);
+    console.error('❌ Error handling webhook:', error);
     res.sendStatus(500);
   }
 }
@@ -105,7 +111,7 @@ async function processMessage(from, messageBody, messageId) {
 
   } catch (error) {
     console.error('Error processing message:', error);
-    
+
     // Send error message to user
     await sendErrorMessage(from, error.message || 'Sorry, something went wrong. Please try again.');
   }
