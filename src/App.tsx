@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import WeatherCard from "./components/WeatherCard/WeatherCard";
+import SearchBar from "./components/SearchBar/SearchBar";
 import { getCurrentWeather } from "./services/weatherApi";
 import { WeatherData } from "./types/models/weather.interface";
 
@@ -27,11 +28,18 @@ function App() {
     }
   };
 
+  const handleSearch = (city: string) => {
+    fetchWeather(city);
+  };
+
   return (
     <div className="App">
-      <h1>Weather App</h1>
+      <h1>🌤️ Weather Dashboard</h1>
+      <p className="subtitle">Get real-time weather information for any city</p>
 
-      {loading && <p>Loading...</p>}
+      <SearchBar onSearch={handleSearch} loading={loading} />
+
+      {loading && <p className="loading-text">Loading weather data...</p>}
       {error && <p className="error">{error}</p>}
       {weather && <WeatherCard weather={weather} />}
     </div>
