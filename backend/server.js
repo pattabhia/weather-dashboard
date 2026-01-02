@@ -41,6 +41,29 @@ app.get('/test/weather/:city', async (req, res) => {
   }
 });
 
+// Debug endpoint to check environment variables (without exposing values)
+app.get('/test/env', (req, res) => {
+  const envCheck = {
+    OPENWEATHER_API_KEY: !!process.env.OPENWEATHER_API_KEY,
+    WHATSAPP_API_TOKEN: !!process.env.WHATSAPP_API_TOKEN,
+    WHATSAPP_PHONE_NUMBER_ID: !!process.env.WHATSAPP_PHONE_NUMBER_ID,
+    WEBHOOK_VERIFY_TOKEN: !!process.env.WEBHOOK_VERIFY_TOKEN,
+    NODE_ENV: process.env.NODE_ENV
+  };
+
+  const allConfigured = Object.entries(envCheck)
+    .filter(([key]) => key !== 'NODE_ENV')
+    .every(([, value]) => value === true);
+
+  res.json({
+    configured: envCheck,
+    allSet: allConfigured,
+    message: allConfigured
+      ? 'All environment variables are configured ✅'
+      : 'Some environment variables are missing ❌'
+  });
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Server error:', err);
