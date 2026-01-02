@@ -50,29 +50,34 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log('🚀 Weather WhatsApp Bot Server Started');
-  console.log(`📡 Server running on port ${PORT}`);
-  console.log(`🌐 Webhook URL: http://localhost:${PORT}/webhook`);
-  console.log('⏳ Waiting for WhatsApp messages...\n');
-  
-  // Check if environment variables are set
-  const requiredEnvVars = [
-    'OPENWEATHER_API_KEY',
-    'WHATSAPP_API_TOKEN',
-    'WHATSAPP_PHONE_NUMBER_ID',
-    'WEBHOOK_VERIFY_TOKEN'
-  ];
-  
-  const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
-  
-  if (missingVars.length > 0) {
-    console.warn('⚠️  WARNING: Missing environment variables:');
-    missingVars.forEach(varName => console.warn(`   - ${varName}`));
-    console.warn('   Please check your .env file\n');
-  } else {
-    console.log('✅ All environment variables configured\n');
-  }
-});
+// Start server (only in local development)
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log('🚀 Weather WhatsApp Bot Server Started');
+    console.log(`📡 Server running on port ${PORT}`);
+    console.log(`🌐 Webhook URL: http://localhost:${PORT}/webhook`);
+    console.log('⏳ Waiting for WhatsApp messages...\n');
+
+    // Check if environment variables are set
+    const requiredEnvVars = [
+      'OPENWEATHER_API_KEY',
+      'WHATSAPP_API_TOKEN',
+      'WHATSAPP_PHONE_NUMBER_ID',
+      'WEBHOOK_VERIFY_TOKEN'
+    ];
+
+    const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
+
+    if (missingVars.length > 0) {
+      console.warn('⚠️  WARNING: Missing environment variables:');
+      missingVars.forEach(varName => console.warn(`   - ${varName}`));
+      console.warn('   Please check your .env file\n');
+    } else {
+      console.log('✅ All environment variables configured\n');
+    }
+  });
+}
+
+// Export for Vercel serverless
+module.exports = app;
 
